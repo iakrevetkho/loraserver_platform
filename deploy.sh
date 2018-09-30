@@ -1,8 +1,5 @@
 #!/usr/bin/env sh
 
-#install requirements
-sudo apt install mosquitto mosquitto-clients redis-server redis-tools postgresql 
-
 # remove old docker versions
 sudo apt-get remove docker docker-engine docker.io
 
@@ -32,6 +29,31 @@ sudo chmod +x /usr/local/bin/docker-compose
 sudo docker rm $(sudo docker ps -a -q) -f
 # Delete previously containers images
 sudo docker rmi $(sudo docker images -q) -f
+
+#install requirements
+sudo apt install mosquitto mosquitto-clients redis-server redis-tools postgresql 
+
+# Configure PostgreSQL
+sudo -u postgres psql
+
+-- set up the users and the passwords
+-- (note that it is important to use single quotes and a semicolon at the end!)
+create role loraserver_as with login password 'dbpassword';
+create role loraserver_ns with login password 'dbpassword';
+
+-- create the database for the servers
+create database loraserver_as with owner loraserver_as;
+create database loraserver_ns with owner loraserver_ns;
+
+-- change to the LoRa App Server database
+\c loraserver_as
+
+-- enable the pq_trgm extension
+-- (this is needed to facilidate the search feature)
+create extension pg_trgm;
+
+-- exit psql
+\q
 
 # Clone LoraServer docker-compose repo
 git clone https://github.com/brocaar/loraserver-docker.git
