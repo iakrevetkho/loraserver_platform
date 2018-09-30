@@ -5,7 +5,7 @@ sudo apt-get remove docker docker-engine docker.io
 
 # Install packages to allow apt to use a repository over HTTPS:
 sudo apt-get update
-sudo apt-get install apt-transport-https ca-certificates curl software-properties-common dirmngr
+sudo apt-get install apt-transport-https ca-certificates curl software-properties-common dirmngr -y
 
 # Add Docker’s official GPG key:
 curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
@@ -31,7 +31,7 @@ sudo docker rm $(sudo docker ps -a -q) -f
 sudo docker rmi $(sudo docker images -q) -f
 
 #install requirements
-sudo apt install mosquitto mosquitto-clients redis-server redis-tools postgresql 
+sudo apt install mosquitto mosquitto-clients redis-server redis-tools postgresql -y
 
 # Configure PostgreSQL
 sudo -u postgres psql
