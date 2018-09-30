@@ -46,7 +46,7 @@ create database loraserver_as with owner loraserver_as;
 create database loraserver_ns with owner loraserver_ns;
 
 -- change to the LoRa App Server database
-\c loraserver_as
+\c loraserver_as;
 
 -- enable the pq_trgm extension
 -- (this is needed to facilidate the search feature)
