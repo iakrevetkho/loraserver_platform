@@ -34,7 +34,7 @@ sudo docker rmi $(sudo docker images -q) -f
 sudo apt install mosquitto mosquitto-clients redis-server redis-tools postgresql -y
 
 # Configure PostgreSQL
-sudo -u postgres psql
+sudo -u postgres psql -c "
 
 -- set up the users and the passwords
 -- (note that it is important to use single quotes and a semicolon at the end!)
@@ -53,7 +53,7 @@ create database loraserver_ns with owner loraserver_ns;
 create extension pg_trgm;
 
 -- exit psql
-\q
+\q"
 
 # Clone LoraServer docker-compose repo
 git clone https://github.com/brocaar/loraserver-docker.git
